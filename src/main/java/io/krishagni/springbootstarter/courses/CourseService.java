@@ -14,16 +14,14 @@ public class CourseService {
 	private CourseRepository courseRepository;
 	
 	
-	public List<Course> getAllCourses() {
-		//return topics;
-		List<Course> topics = new ArrayList<>();
-		courseRepository.findAll()
-		.forEach(topics::add);
-		return topics;
+	public List<Course> getAllCourses(String topicId) {
+		List<Course> courses = new ArrayList<>();
+		courseRepository.findByTopicId(topicId)
+		.forEach(courses::add);
+		return courses;
 	}
 	
 	public Optional<Course> getCourse(String id) {
-		//return topics.stream().filter(t -> t.getId().contentEquals(id)).findFirst().get();
 		return courseRepository.findById(id);
 	}
 
@@ -31,13 +29,12 @@ public class CourseService {
 		courseRepository.save(course);
 	}
 
-	public void updateCourse(String id, Course course) {
+	public void updateCourse(Course course) {
 		courseRepository.save(course);
 		
 	}
 
 	public void deleteCourse(String id) {
-		//topics.removeIf(t->t.getId().equals(id));
 		courseRepository.deleteById(id);
 	}
 	
